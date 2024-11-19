@@ -1,0 +1,20 @@
+<%= link_to "Back to Home", root_path %>
+<h1><%= @board.name %></h1>
+<p>Width: <%= @board.width %></p>
+<p>Height: <%= @board.height %></p>
+<p>Mines: <%= @board.mines.count %></p>
+<p>Created by: <%= @board.email %></p>
+<p>Generated on: <%= @board.created_at.strftime("%b %d, %Y %H:%M") %></p>
+
+<h2>Minesweeper Board</h2>
+<table>
+  <% @board_matrix.each do |row| %>
+    <tr>
+      <% row.each do |cell| %>
+        <td>
+          <p><%= cell %></p>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

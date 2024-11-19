@@ -1,0 +1,52 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1rem;
+}
+
+table {
+  border-collapse: collapse; /* Ensures borders don't double up */
+  margin: 20px auto; /* Center the table on the page */
+  background-color: #f9f9f9; /* Add a background color */
+}
+
+tr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -1px;
+}
+
+td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 1px solid black; /* Adds border around each cell */
+  width: 50px; /* Optional: Set cell width */
+  height: 50px; /* Optional: Set cell height */
+  text-align: center; /* Optional: Center content */
+  box-sizing: border-box; /* Ensures the border is included in the cell dimensions */
+  padding: 4px;
+  margin-left: 1px;
+  margin-top: 1px;
+}

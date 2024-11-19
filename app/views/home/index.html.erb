@@ -1,0 +1,42 @@
+<h1>Welcome to Minesweeper</h1>
+
+<%= form_with model: @board, local: true do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :name, "Board Name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :width, "Board Width" %>
+    <%= form.number_field :width %>
+  </div>
+
+  <div>
+    <%= form.label :height, "Board Height" %>
+    <%= form.number_field :height %>
+  </div>
+
+  <div>
+    <%= form.label :mine_count, "Number of Mines" %>
+    <%= form.number_field :mine_count %>
+  </div>
+
+  <%= form.submit "Generate Board" %>
+<% end %>
+
+<h2>Recently Generated Boards</h2>
+<ul>
+  <% @recent_boards.each do |board| %>
+    <li>
+      <strong><%= link_to board.name, board_path(board) %></strong> - 
+     Size: <%= board.width %> x <%= board.height %> - Mines: <%= board.mines.count %> - Created by: <%= board.email %> on <%= board.created_at.strftime("%b %d, %Y %H:%M") %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "View All Generated Boards", boards_path %>
