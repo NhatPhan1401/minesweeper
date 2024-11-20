@@ -11,9 +11,19 @@
   <% @board_matrix.each do |row| %>
     <tr>
       <% row.each do |cell| %>
-        <td>
-          <p><%= cell %></p>
-        </td>
+        <% if cell == "" %>
+          <td class="empty">
+            <p><%= cell %></p>
+          </td>
+        <% elsif cell == '💣' %>
+          <td class="mine">
+            <p><%= cell %></p>
+          </td>
+        <% else %>
+        <td class="number">
+            <p><%= cell %></p>
+          </td>
+        <% end %>
       <% end %>
     </tr>
   <% end %>

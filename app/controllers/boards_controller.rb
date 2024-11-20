@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   def index
-     @boards = Board.all.order(created_at: :desc)
+     @boards = Board.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create

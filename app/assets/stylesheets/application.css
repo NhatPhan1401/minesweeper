@@ -49,4 +49,13 @@ td {
   padding: 4px;
   margin-left: 1px;
   margin-top: 1px;
+  background: white;
+}
+
+td.empty {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+td.number {
+  background: rgba(0, 0, 0, 0.2);
 }

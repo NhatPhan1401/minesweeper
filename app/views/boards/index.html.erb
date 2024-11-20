@@ -5,7 +5,9 @@
   <% @boards.each do |board| %>
     <li>
       <strong><%= link_to board.name, board_path(board) %></strong> - 
-     Size: <%= board.width %> x <%= board.height %> - Mines: <%= board.mines.count %> - Created by: <%= board.email %> on <%= board.created_at.strftime("%b %d, %Y %H:%M") %>
+      Size: <%= board.width %> x <%= board.height %> - Mines: <%= board.mines.count %> - Created by: <%= board.email %> on <%= board.created_at.strftime("%b %d, %Y %H:%M") %>
     </li>
   <% end %>
 </ul>
+
+<%= paginate @boards %>
