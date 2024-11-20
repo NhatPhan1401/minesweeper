@@ -7,24 +7,54 @@
 <p>Generated on: <%= @board.created_at.strftime("%b %d, %Y %H:%M") %></p>
 
 <h2>Minesweeper Board</h2>
-<table>
-  <% @board_matrix.each do |row| %>
-    <tr>
-      <% row.each do |cell| %>
-        <% if cell == "" %>
-          <td class="empty">
-            <p><%= cell %></p>
-          </td>
-        <% elsif cell == '💣' %>
-          <td class="mine">
-            <p><%= cell %></p>
-          </td>
-        <% else %>
-        <td class="number">
-            <p><%= cell %></p>
-          </td>
+
+
+<div class="container">
+  <div>
+    <%= link_to "⬆ Up", board_path(@board, pos_x: @current_pos_x, pos_y: [@current_pos_y - @rows_per_page, 0].max), class: "nav-button" %>
+  </div>
+  <div class="table_container">
+    <div>
+      <%= link_to "⬅ Left", board_path(@board, pos_x: [@current_pos_x - @cols_per_page, 0].max, pos_y: @current_pos_y), class: "nav-button" %>
+    </div>
+    <table>
+    <%# Column Headers %>
+    <thead>
+      <tr>
+        <td class="number"/>
+        <% @col_headers.each do |col| %>
+          <td class="number"><%= col %></td>
         <% end %>
+      </tr>
+    </thead>
+
+    <%# Board Content %>
+    <tbody>
+      <% @board_matrix.each_with_index do |row, row_index| %>
+        <tr>
+          <%# Row Header %>
+          <td class="number">
+            <p><%= @row_headers[row_index] %></p>
+          </td>
+          <% row.each do |cell| %>
+            <% if cell == "" %>
+              <td class="empty"><p><%= cell %></p></td>
+            <% elsif cell == '💣' %>
+              <td class="mine"><p><%= cell %></p></td>
+
+            <% end %>
+          <% end %>
+        </tr>
       <% end %>
-    </tr>
-  <% end %>
-</table>
+    </tbody>
+    </table>
+    <div>
+      <%= link_to "➡ Right", board_path(@board, pos_x: [@current_pos_x + @cols_per_page, @board.width - @rows_per_page].min, pos_y: @current_pos_y), class: "nav-button" %>
+    </div>
+  </div>
+
+  <div>
+    <%= link_to "⬇ Down", board_path(@board, pos_x: @current_pos_x, pos_y: [@current_pos_y + @rows_per_page, @board.height - @cols_per_page].min), class: "nav-button" %>
+  </div>
+</div>
+

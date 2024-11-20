@@ -26,7 +26,6 @@ body {
 
 table {
   border-collapse: collapse; /* Ensures borders don't double up */
-  margin: 20px auto; /* Center the table on the page */
   background-color: #f9f9f9; /* Add a background color */
 }
 
@@ -42,8 +41,8 @@ td {
   justify-content: center;
   align-items: center;
   outline: 1px solid black; /* Adds border around each cell */
-  width: 50px; /* Optional: Set cell width */
-  height: 50px; /* Optional: Set cell height */
+  width: 30px; /* Optional: Set cell width */
+  height: 30px; /* Optional: Set cell height */
   text-align: center; /* Optional: Center content */
   box-sizing: border-box; /* Ensures the border is included in the cell dimensions */
   padding: 4px;
@@ -58,4 +57,32 @@ td.empty {
 
 td.number {
   background: rgba(0, 0, 0, 0.2);
+}
+
+.nav-button {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.table_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -8,26 +8,18 @@ class Board < ApplicationRecord
 
   after_create :generate_mines
 
-  def board_matrix
-    # Create an empty matrix
-    matrix = Array.new(height + 1) { Array.new(width + 1, '') }
-    
-    # Create col and row number in matrix
-    (1..height).each do |row|
-      matrix[row][0] = row
-    end
+def board_matrix
+  # Create an empty matrix
+  matrix = Array.new(height) { Array.new(width, '') }
 
-    (1..width).each do |col|
-      matrix[0][col] = col
-    end
-    
-    # Mark mines in the matrix
-    mines.each do |mine|
-      matrix[mine.y][mine.x] = '💣'
-    end
-
-    matrix
+  # Mark mines in the matrix
+  mines.each do |mine|
+    matrix[mine.y - 1][mine.x - 1] = '💣' # Adjust for 0-based indexing
   end
+
+  matrix
+end
+
 
   private
 
