@@ -1,0 +1,13 @@
+services:
+  db:
+    # oracle version supports both x86/amd64 and arm architecture
+    image: mysql:8.3.0-oracle
+    environment:
+      command: --default-authentication-plugin=mysql_native_password
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: minesweeper_dev
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db_volume/mysql_data:/var/lib/mysql
+      - ./db_volume/mysql_config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf

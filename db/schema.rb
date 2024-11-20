@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_083859) do
   end
 
   create_table "mines", force: :cascade do |t|
-    t.integer "board_id", null: false
+    t.bigint "board_id", null: false
     t.integer "x"
     t.integer "y"
     t.datetime "created_at", null: false
