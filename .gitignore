@@ -37,3 +37,5 @@
 .DS_Store
 
 /db_volume
+.env
+.DS_Store
