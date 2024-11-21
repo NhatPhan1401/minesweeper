@@ -31,17 +31,20 @@ class Board < ApplicationRecord
   def generate_mines
     total_cells = width * height
 
-    # Ensure mine count doesn't exceed total cells (already validated in `valid_mine_count`)
-    raise 'Mine count exceeds total cells' if mine_count > total_cells
+    raise "Mine count exceeds total cells" if mine_count > total_cells
 
-    # Randomly sample unique indices for mines
-    mine_indices = (0...total_cells).to_a.sample(mine_count)
+    # Hash-based unique random sampling
+    unique_indices = {}
+    while unique_indices.size < mine_count
+      random_index = rand(total_cells)
+      unique_indices[random_index] ||= true
+    end
 
-    # Convert 1D indices back to 2D coordinates
-    mine_positions = mine_indices.map do |index|
+    # Convert the sampled indices back to 2D coordinates
+    mine_positions = unique_indices.keys.map do |index|
       x = (index % width) + 1  # Convert to 1-based x-coordinate
       y = (index / width) + 1  # Convert to 1-based y-coordinate
-      { x:, y: }
+      { x: x, y: y }
     end
 
     # Bulk insert mines into the database
