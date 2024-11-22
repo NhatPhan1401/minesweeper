@@ -31,14 +31,14 @@ class BoardsController < ApplicationController
       mines_in_viewport = @board.mines.where(x: x_min..x_max, y: y_min..y_max)
 
       # Build the matrix for the viewport
-      @board_matrix = Array.new(@rows_per_page) { Array.new(@cols_per_page, '') }
-      mines_in_viewport.each do |mine|
-        matrix_x = mine.x - x_min
-        matrix_y = mine.y - y_min
-        @board_matrix[matrix_y][matrix_x] = '💣' if matrix_y.between?(0,
-                                                                      @rows_per_page - 1) && matrix_x.between?(0,
-                                                                                                               @cols_per_page - 1)
-      end
+      @board_matrix = Array.new([@board.height,@rows_per_page].min) { Array.new([@board.width,@cols_per_page].min, '') }
+        mines_in_viewport.each do |mine|
+          matrix_x = mine.x - x_min
+          matrix_y = mine.y - y_min
+          @board_matrix[matrix_y][matrix_x] = '💣' if matrix_y.between?(0,
+                                                                        @rows_per_page - 1) && matrix_x.between?(0,
+                                                                                                                @cols_per_page - 1)
+        end
 
       # Generate headers for visible rows and columns
       @col_headers = (x_min..x_max).to_a

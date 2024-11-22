@@ -14,7 +14,7 @@
  *= require_self
  */
 
-* {
+/* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -25,8 +25,8 @@ body {
 }
 
 table {
-  border-collapse: collapse; /* Ensures borders don't double up */
-  background-color: #f9f9f9; /* Add a background color */
+  border-collapse: collapse;
+  background-color: #f9f9f9;
 }
 
 tr {
@@ -40,11 +40,11 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 1px solid black; /* Adds border around each cell */
-  width: 30px; /* Optional: Set cell width */
-  height: 30px; /* Optional: Set cell height */
-  text-align: center; /* Optional: Center content */
-  box-sizing: border-box; /* Ensures the border is included in the cell dimensions */
+  outline: 1px solid black;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  box-sizing: border-box;
   padding: 4px;
   margin-left: 1px;
   margin-top: 1px;
@@ -85,4 +85,4 @@ td.number {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */

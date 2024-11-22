@@ -1,13 +1,23 @@
-<%= link_to "Back to Home", root_path %>
-<h1>List of Minesweeper Boards</h1>
+<div class="container mx-auto p-6">
+  <%= link_to "Back to Home", root_path, class: "text-blue-500 hover:underline mb-4 inline-block" %>
 
-<ul>
-  <% @boards.each do |board| %>
-    <li>
-      <strong><%= link_to board.name, board_path(board) %></strong> - 
-      Size: <%= board.width %> x <%= board.height %> - Mines: <%= board.mines.count %> - Created by: <%= board.email %> on <%= board.created_at.strftime("%b %d, %Y %H:%M") %>
-    </li>
-  <% end %>
-</ul>
+  <h1 class="text-3xl font-bold mb-6">List of Minesweeper Boards</h1>
 
-<%= paginate @boards %>
+  <ul class="space-y-4">
+    <% @boards.each do |board| %>
+      <li class="border-b pb-2">
+        <strong>
+          <%= link_to board.name, board_path(board), class: "text-blue-500 hover:underline" %>
+        </strong>
+        - Size: <%= board.width %> x <%= board.height %> 
+        - Mines: <%= board.mines.count %> 
+        - Created by: <%= board.email %> 
+        on <%= board.created_at.strftime("%b %d, %Y %H:%M") %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="mt-6">
+    <%= paginate @boards %>
+  </div>
+</div>

@@ -31,7 +31,7 @@ class Board < ApplicationRecord
   def generate_mines
     total_cells = width * height
 
-    raise "Mine count exceeds total cells" if mine_count > total_cells
+    raise 'Mine count exceeds total cells' if mine_count > total_cells
 
     # Hash-based unique random sampling
     unique_indices = {}
@@ -44,7 +44,7 @@ class Board < ApplicationRecord
     mine_positions = unique_indices.keys.map do |index|
       x = (index % width) + 1  # Convert to 1-based x-coordinate
       y = (index / width) + 1  # Convert to 1-based y-coordinate
-      { x: x, y: y }
+      { x:, y: }
     end
 
     # Bulk insert mines into the database

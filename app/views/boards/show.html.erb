@@ -1,60 +1,57 @@
-<%= link_to "Back to Home", root_path %>
-<h1><%= @board.name %></h1>
-<p>Width: <%= @board.width %></p>
-<p>Height: <%= @board.height %></p>
-<p>Mines: <%= @board.mines.count %></p>
-<p>Created by: <%= @board.email %></p>
-<p>Generated on: <%= @board.created_at.strftime("%b %d, %Y %H:%M") %></p>
+<div class="container mx-auto p-6">
+  <%= link_to "Back to Home", root_path, class: "text-blue-500 hover:underline mb-4 inline-block" %>
 
-<h2>Minesweeper Board</h2>
-
-
-<div class="container">
-  <div>
-    <%= link_to "⬆ Up", board_path(@board, pos_x: @current_pos_x, pos_y: [@current_pos_y - @rows_per_page, 0].max), class: "nav-button" %>
+  <h1 class="text-3xl font-bold mb-6"><%= @board.name %></h1>
+  
+  <div class="mb-6 space-y-2">
+    <p><strong>Width:</strong> <%= @board.width %></p>
+    <p><strong>Height:</strong> <%= @board.height %></p>
+    <p><strong>Mines:</strong> <%= @board.mines.count %></p>
+    <p><strong>Created by:</strong> <%= @board.email %></p>
+    <p><strong>Generated on:</strong> <%= @board.created_at.strftime("%b %d, %Y %H:%M") %></p>
   </div>
-  <div class="table_container">
-    <div>
-      <%= link_to "⬅ Left", board_path(@board, pos_x: [@current_pos_x - @cols_per_page, 0].max, pos_y: @current_pos_y), class: "nav-button" %>
+
+  <h2 class="text-2xl font-bold mb-4">Minesweeper Board</h2>
+
+  <div class="flex flex-col">
+    <div class="flex justify-center py-2">
+      <%= link_to "⬆ Up", board_path(@board, pos_x: @current_pos_x, pos_y: [@current_pos_y - @rows_per_page, 0].max), class: "bg-gray-200 rounded px-4 py-2 hover:bg-gray-300" %>
     </div>
-    <table>
-    <%# Column Headers %>
-    <thead>
-      <tr>
-        <td class="number"/>
-        <% @col_headers.each do |col| %>
-          <td class="number"><%= col %></td>
-        <% end %>
-      </tr>
-    </thead>
+    
 
-    <%# Board Content %>
-    <tbody>
-      <% @board_matrix.each_with_index do |row, row_index| %>
-        <tr>
-          <%# Row Header %>
-          <td class="number">
-            <p><%= @row_headers[row_index] %></p>
-          </td>
-          <% row.each do |cell| %>
-            <% if cell == "" %>
-              <td class="empty"><p><%= cell %></p></td>
-            <% elsif cell == '💣' %>
-              <td class="mine"><p><%= cell %></p></td>
+    <div class="flex justify-center space-x-4">
+      <div class="flex items-center py-2">
+        <%= link_to "⬅ Left", board_path(@board, pos_x: [@current_pos_x - @cols_per_page, 0].max, pos_y: @current_pos_y), class: "bg-gray-200 rounded px-4 py-2 hover:bg-gray-300 w-max" %>
+      </div>
 
+      <table class="table-auto border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-2 bg-stone-200">#</th>
+            <% @col_headers.each do |col| %>
+              <th class="border border-gray-300 px-2 bg-stone-200"><%= col %></th>
             <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @board_matrix.each_with_index do |row, row_index| %>
+            <tr>
+              <td class="border border-gray-300 px-2 bg-stone-200"><%= @row_headers[row_index] %></td>
+              <% row.each do |cell| %>
+                <td class="border border-gray-300 px-2 text-center">
+                  <%= cell == '💣' ? '💣' : '' %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-    </table>
-    <div>
-      <%= link_to "➡ Right", board_path(@board, pos_x: [@current_pos_x + @cols_per_page, @board.width - @rows_per_page].min, pos_y: @current_pos_y), class: "nav-button" %>
+        </tbody>
+      </table>
+      <div class="flex items-center py-2">
+        <%= link_to "➡ Right", board_path(@board, pos_x: @rows_per_page <= @board.width ? [@current_pos_x + @cols_per_page, @board.width - @rows_per_page].min : 0, pos_y: @current_pos_y), class: "bg-gray-200 rounded px-4 py-2 hover:bg-gray-300 w-max" %>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <%= link_to "⬇ Down", board_path(@board, pos_x: @current_pos_x, pos_y: [@current_pos_y + @rows_per_page, @board.height - @cols_per_page].min), class: "nav-button" %>
+    <div class="flex justify-center py-2">
+      <%= link_to "⬇ Down", board_path(@board, pos_x: @current_pos_x, pos_y: @cols_per_page <= @board.height ? [@current_pos_y + @rows_per_page, @board.height - @cols_per_page].min : 0), class: "bg-gray-200 rounded px-4 py-2 hover:bg-gray-300" %>
+    </div>
   </div>
 </div>
-
