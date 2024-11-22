@@ -7,25 +7,35 @@ class Board < ApplicationRecord
   validates :width, :height, :mine_count, numericality: { only_integer: true, greater_than: 0 }
   validate :valid_mine_count
 
-  after_create :generate_mines
+  after_create :generate_mines_with_transaction
 
-    def board_matrix
-      # Create an empty matrix
-      matrix = Array.new(height) { Array.new(width, '') }
+  def board_matrix
+    # Create an empty matrix
+    matrix = Array.new(height) { Array.new(width, '') }
 
-      # Mark mines in the matrix
-      mines.each do |mine|
-        matrix[mine.y - 1][mine.x - 1] = '💣' # Adjust for 0-based indexing
-      end
-
-      matrix
+    # Mark mines in the matrix
+    mines.each do |mine|
+      matrix[mine.y - 1][mine.x - 1] = '💣' # Adjust for 0-based indexing
     end
+
+    matrix
+  end
 
   private
 
   def valid_mine_count
     max_mines = width * height
     errors.add(:mine_count, 'cannot exceed total cells') if mine_count > max_mines
+  end
+
+  def generate_mines_with_transaction
+    Board.transaction do
+      # Generate and validate the board
+      generate_mines
+    rescue => e
+      errors.add(:base, "Failed to generate mines: #{e.message}")
+      raise ActiveRecord::Rollback
+    end
   end
 
   def generate_mines
@@ -44,10 +54,15 @@ class Board < ApplicationRecord
     mine_positions = unique_indices.keys.map do |index|
       x = (index % width) + 1  # Convert to 1-based x-coordinate
       y = (index / width) + 1  # Convert to 1-based y-coordinate
-      { x:, y: }
+      { x:, y:, board_id: id } # Include board_id for association
     end
 
-    # Bulk insert mines into the database
-    mines.insert_all(mine_positions)
+    # Use a transaction to insert mines
+    Mine.transaction do
+      Mine.insert_all!(mine_positions)
+    rescue => e
+      errors.add(:base, "Failed to insert mines: #{e.message}")
+      raise ActiveRecord::Rollback
+    end
   end
 end
